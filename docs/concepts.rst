@@ -61,9 +61,10 @@ Scope
 -----
 
 Airflow will load any ``DAG`` object it can import from a DAGfile. Critically,
-that means the DAG must appear in ``globals()``. Consider the following two
-DAGs. Only ``dag_1`` will be loaded; the other one only appears in a local
-scope.
+that means the DAG must appear in ``globals()``. Consider the following three
+DAGs. Only ``dag_1`` will be loaded; ``dag_2`` only appears in a local
+scope, and the third DAG is returned from the function but not saved to a
+variable in the global scope.
 
 .. code:: python
 
@@ -71,6 +72,7 @@ scope.
 
     def my_function():
         dag_2 = DAG('but_this_dag_will_not')
+        return DAG('nor_will_this_one')
 
     my_function()
 
